@@ -6,6 +6,7 @@ target 'test2' do
   use_frameworks!
   
   # Pods for test2
-  pod 'MBProgressHUD'
+  pod 'Kingfisher'
+
 
 end

@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import MBProgressHUD
+import Kingfisher
 
 class RecepiesTableViewController: UIViewController {
     
@@ -93,6 +93,12 @@ extension RecepiesTableViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        cell.textLabel?.text = recipes[indexPath.row].name
+        guard let cell = cell as? RecipeTableViewCell else {
+            preconditionFailure("Can not cast cell as Recipe Table View Cell")
+        }
+        let recipe = recipes[indexPath.row]
+        cell.recipeImageView.kf.setImage(with: recipe.thumbImageURL)
+        cell.nameLabel.text = recipe.name
+        cell.descriptionLabel.text = recipe.description
     }
 }
