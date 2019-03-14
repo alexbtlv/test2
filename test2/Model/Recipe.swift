@@ -10,22 +10,18 @@ import Foundation
 
 
 struct Recipe: Codable {
-    let uuid: String?
+    let uuid: String
     let name: String?
     let images: [String]?
     let lastUpdated: Int?
     let description: String?
     let instructions: String?
     let difficulty: Int?
-    var thumbImageURL: URL {
+    var thumbImageURL: URL? {
         if let first = images?.first, let firstURL = URL(string: first) {
             return firstURL
         }
-        let documentDirectory = FileManager.SearchPathDirectory.documentDirectory
-        let userDomainMask = FileManager.SearchPathDomainMask.userDomainMask
-        let paths = NSSearchPathForDirectoriesInDomains(documentDirectory, userDomainMask, true)
-        guard let dirPath = paths.first else { preconditionFailure("Can not find path") }
-        return URL(fileURLWithPath: dirPath).appendingPathComponent("food.png")
+        return nil
     }
 }
 

@@ -35,6 +35,8 @@ class RecepiesTableViewController: UIViewController {
         
         //Add search controller
         searchController.searchResultsUpdater = self
+        searchController.dimsBackgroundDuringPresentation = false
+        searchController.hidesNavigationBarDuringPresentation = false
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
         
@@ -112,6 +114,13 @@ extension RecepiesTableViewController: UITableViewDelegate {
         cell.recipeImageView.kf.setImage(with: recipe.thumbImageURL)
         cell.nameLabel.text = recipe.name
         cell.descriptionLabel.text = recipe.description
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let recipe = isFiltering ? filteredRecipes[indexPath.row] : recipes[indexPath.row]
+        let detailVC = RecipeDetailViewController(nibName: "RecipeDetailViewController", bundle: nil)
+        detailVC.recipe = recipe
+        navigationController?.pushViewController(detailVC, animated: true)
     }
 }
 
