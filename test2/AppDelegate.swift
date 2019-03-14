@@ -15,8 +15,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         window = UIWindow(frame: UIScreen.main.bounds)
-        let navVC = UINavigationController()
-        let recipesVC = RecepiesTableViewController()
+        let navVC = MainNavigationViewController()
+        let recipesVC = RecepiesTableViewController(nibName: "RecipesTableViewController", bundle: nil)
         navVC.addChild(recipesVC)
         window!.rootViewController = navVC
         window!.makeKeyAndVisible()
