@@ -20,12 +20,14 @@ class RecepiesTableViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.register(UINib(nibName: "RecipeCell", bundle: nil), forCellReuseIdentifier: cellReuseIdentifier)
         setupUI()
     }
     
     private func setupUI() {
         title = "Recipes"
+        // register nib
+        tableView.register(UINib(nibName: "RecipeCell", bundle: nil), forCellReuseIdentifier: cellReuseIdentifier)
+        
         // Add Refresh Control to Table View
         if #available(iOS 10.0, *) {
             tableView.refreshControl = refreshControl
@@ -76,6 +78,10 @@ class RecepiesTableViewController: UIViewController {
 
 extension RecepiesTableViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
+        if recipes.isEmpty {
+            TableViewHelper.emptyMessage("You don't have any recipes, just yet.\n Pull to refresh!", tableView: tableView)
+            return 0
+        }
         return 1
     }
     
@@ -91,7 +97,10 @@ extension RecepiesTableViewController: UITableViewDelegate {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier) else {
             preconditionFailure("Plese make sure to register Nib for Cell Reuse Identifier.")
         }
-        cell.textLabel?.text = recipes[indexPath.row].name
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.textLabel?.text = recipes[indexPath.row].name
     }
 }
