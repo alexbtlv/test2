@@ -21,4 +21,9 @@ extension UITableView {
         self.backgroundView = messageLabel
         self.separatorStyle = .none
     }
+    
+    func removeEmptyMessge() {
+        self.backgroundView = nil
+        self.separatorStyle = .singleLine
+    }
 }

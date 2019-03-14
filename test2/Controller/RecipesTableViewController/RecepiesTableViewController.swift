@@ -9,6 +9,12 @@
 import UIKit
 import Kingfisher
 
+enum SearchScope: Int {
+    case name
+    case description
+    case instructions
+}
+
 class RecepiesTableViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
@@ -18,9 +24,13 @@ class RecepiesTableViewController: UIViewController {
     private let cellReuseIdentifier = "RecepieCell"
     private var recipes = [Recipe]()
     private var filteredRecipes = [Recipe]()
+    private var currentSearchScope: SearchScope = .name
     private let networkManager = RecipeNetworkManager()
+    private var searchBarIsEmpty: Bool {
+        return searchController.searchBar.text?.isEmpty ?? true
+    }
     private var isFiltering: Bool {
-        return searchController.isActive && !searchBarIsEmpty()
+        return searchController.isActive && !searchBarIsEmpty
     }
     
     override func viewDidLoad() {
@@ -33,10 +43,15 @@ class RecepiesTableViewController: UIViewController {
         // register nib
         tableView.register(UINib(nibName: "RecipeCell", bundle: nil), forCellReuseIdentifier: cellReuseIdentifier)
         
+        // Prepare to present search controller
+        definesPresentationContext = true
+        
         //Add search controller
         searchController.searchResultsUpdater = self
+        searchController.searchBar.delegate = self
         searchController.dimsBackgroundDuringPresentation = false
         searchController.hidesNavigationBarDuringPresentation = false
+        searchController.searchBar.scopeButtonTitles = ["Name", "Description", "Instructions"]
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
         
@@ -66,7 +81,7 @@ class RecepiesTableViewController: UIViewController {
                     switch response {
                     case .success(let newRecepies):
                         self.recipes = newRecepies
-                        self.tableView.reloadData()
+                        self.reloadData()
                     case .failure(let error):
                         self.showAlert(withMessage: error)
                     }
@@ -74,6 +89,17 @@ class RecepiesTableViewController: UIViewController {
             })
             
         }
+    }
+    
+    private func reloadData() {
+        if isFiltering && filteredRecipes.isEmpty {
+            tableView.setEmptyMessage("No search results")
+        } else if recipes.isEmpty {
+            tableView.setEmptyMessage("You don't have any recipes, yet.\n Pull to refresh!")
+        } else {
+            tableView.removeEmptyMessge()
+        }
+        tableView.reloadData()
     }
 }
 
@@ -131,16 +157,30 @@ extension RecepiesTableViewController: UISearchResultsUpdating {
         filterContentForSearchText(searchController.searchBar.text!)
     }
     
-    private func searchBarIsEmpty() -> Bool {
-        // Returns true if the text is empty or nil
-        return searchController.searchBar.text?.isEmpty ?? true
-    }
-    
-    private func filterContentForSearchText(_ searchText: String, scope: String = "All") {
-        filteredRecipes = recipes.filter {
-            return $0.name?.lowercased().contains(searchText.lowercased()) ?? false
+    private func filterContentForSearchText(_ searchText: String) {
+        switch currentSearchScope {
+        case .name:
+            filteredRecipes = recipes.filter {
+                return $0.name?.lowercased().contains(searchText.lowercased()) ?? false
+            }
+        case .description:
+            filteredRecipes = recipes.filter {
+                return $0.description?.lowercased().contains(searchText.lowercased()) ?? false
+            }
+        case .instructions:
+            filteredRecipes = recipes.filter {
+                return $0.instructions?.lowercased().contains(searchText.lowercased()) ?? false
+            }
         }
         
-        tableView.reloadData()
+        reloadData()
+    }
+}
+
+
+extension RecepiesTableViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
+        currentSearchScope = SearchScope(rawValue: selectedScope) ?? .name
+        updateSearchResults(for: searchController)
     }
 }
