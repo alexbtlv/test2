@@ -14,9 +14,14 @@ class RecepiesTableViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     private let refreshControl = UIRefreshControl()
+    private let searchController = UISearchController(searchResultsController: nil)
     private let cellReuseIdentifier = "RecepieCell"
     private var recipes = [Recipe]()
+    private var filteredRecipes = [Recipe]()
     private let networkManager = RecipeNetworkManager()
+    private var isFiltering: Bool {
+        return searchController.isActive && !searchBarIsEmpty()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +32,11 @@ class RecepiesTableViewController: UIViewController {
         title = "Recipes"
         // register nib
         tableView.register(UINib(nibName: "RecipeCell", bundle: nil), forCellReuseIdentifier: cellReuseIdentifier)
+        
+        //Add search controller
+        searchController.searchResultsUpdater = self
+        navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
         
         // Add Refresh Control to Table View
         if #available(iOS 10.0, *) {
@@ -40,7 +50,6 @@ class RecepiesTableViewController: UIViewController {
     }
     
     @objc private func refreshRecipesData(_ sender: Any) {
-        // Fetch Weather Data
         fetchRecipesData()
     }
 
@@ -71,13 +80,16 @@ class RecepiesTableViewController: UIViewController {
 extension RecepiesTableViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         if recipes.isEmpty {
-            tableView.setEmptyMessage("You don't have any recipes, just yet.\n Pull to refresh!")
+            tableView.setEmptyMessage("You don't have any recipes, yet.\n Pull to refresh!")
             return 0
         }
         return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if isFiltering {
+            return filteredRecipes.count
+        }
         return recipes.count
     }
 }
@@ -96,9 +108,30 @@ extension RecepiesTableViewController: UITableViewDelegate {
         guard let cell = cell as? RecipeTableViewCell else {
             preconditionFailure("Can not cast cell as Recipe Table View Cell")
         }
-        let recipe = recipes[indexPath.row]
+        let recipe = isFiltering ? filteredRecipes[indexPath.row] : recipes[indexPath.row]
         cell.recipeImageView.kf.setImage(with: recipe.thumbImageURL)
         cell.nameLabel.text = recipe.name
         cell.descriptionLabel.text = recipe.description
+    }
+}
+
+// MARK: - Search Results Updating
+
+extension RecepiesTableViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        filterContentForSearchText(searchController.searchBar.text!)
+    }
+    
+    private func searchBarIsEmpty() -> Bool {
+        // Returns true if the text is empty or nil
+        return searchController.searchBar.text?.isEmpty ?? true
+    }
+    
+    private func filterContentForSearchText(_ searchText: String, scope: String = "All") {
+        filteredRecipes = recipes.filter {
+            return $0.name?.lowercased().contains(searchText.lowercased()) ?? false
+        }
+        
+        tableView.reloadData()
     }
 }

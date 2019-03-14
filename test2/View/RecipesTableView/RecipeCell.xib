@@ -14,7 +14,7 @@
         <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="RecepieCell" rowHeight="148" id="pmP-Pl-5x5" customClass="RecipeTableViewCell" customModule="test2" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="538" height="148"/>
             <autoresizingMask key="autoresizingMask"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="pmP-Pl-5x5" id="SVR-i1-Eao">
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="pmP-Pl-5x5" id="SVR-i1-Eao">
                 <rect key="frame" x="0.0" y="0.0" width="538" height="147.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
@@ -31,8 +31,8 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Short Desription" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YvD-bv-rSq">
-                        <rect key="frame" x="155" y="51" width="363" height="20.5"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Short Desription" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YvD-bv-rSq">
+                        <rect key="frame" x="155" y="43" width="363" height="20.5"/>
                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -44,11 +44,11 @@
                     <constraint firstItem="0eq-zB-3DE" firstAttribute="leading" secondItem="SVR-i1-Eao" secondAttribute="leadingMargin" id="SQ1-sh-M8h"/>
                     <constraint firstItem="0eq-zB-3DE" firstAttribute="top" secondItem="SVR-i1-Eao" secondAttribute="topMargin" id="WLp-gm-TpG"/>
                     <constraint firstItem="rKu-gN-oXV" firstAttribute="trailing" secondItem="SVR-i1-Eao" secondAttribute="trailingMargin" id="Xyf-av-G6w"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="YvD-bv-rSq" secondAttribute="bottom" constant="6" id="YrE-F6-wkk"/>
+                    <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="YvD-bv-rSq" secondAttribute="bottom" constant="6" id="YrE-F6-wkk"/>
                     <constraint firstItem="YvD-bv-rSq" firstAttribute="trailing" secondItem="SVR-i1-Eao" secondAttribute="trailingMargin" id="bka-fp-N5s"/>
                     <constraint firstItem="YvD-bv-rSq" firstAttribute="leading" secondItem="0eq-zB-3DE" secondAttribute="trailing" constant="15" id="d4N-BK-EBm"/>
                     <constraint firstItem="0eq-zB-3DE" firstAttribute="bottom" secondItem="SVR-i1-Eao" secondAttribute="bottomMargin" id="hYk-eV-h2V"/>
-                    <constraint firstItem="YvD-bv-rSq" firstAttribute="top" secondItem="rKu-gN-oXV" secondAttribute="bottom" constant="8" id="rCg-4b-fZR"/>
+                    <constraint firstItem="YvD-bv-rSq" firstAttribute="top" secondItem="rKu-gN-oXV" secondAttribute="bottom" id="rCg-4b-fZR"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
