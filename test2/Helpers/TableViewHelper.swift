@@ -8,9 +8,9 @@
 
 import UIKit
 
-class TableViewHelper {
+extension UITableView {
     
-    class func emptyMessage(_ message:String, tableView: UITableView) {
+    func setEmptyMessage(_ message:String) {
         let messageLabel = UILabel()
         messageLabel.text = message
         messageLabel.textColor = .black
@@ -18,7 +18,7 @@ class TableViewHelper {
         messageLabel.textAlignment = .center
         messageLabel.sizeToFit()
         
-        tableView.backgroundView = messageLabel;
-        tableView.separatorStyle = .none;
+        self.backgroundView = messageLabel
+        self.separatorStyle = .none
     }
 }

@@ -28,6 +28,7 @@
 		850D39A2223A44BC00BFAC81 /* RecipesTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 850D39A1223A44BC00BFAC81 /* RecipesTableViewController.xib */; };
 		850D39A4223A500500BFAC81 /* RecipeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 850D39A3223A500500BFAC81 /* RecipeCell.xib */; };
 		8514C779223A5E7C007D8D89 /* TableViewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8514C778223A5E7C007D8D89 /* TableViewHelper.swift */; };
+		8514C77B223A6113007D8D89 /* ViewControllerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8514C77A223A6113007D8D89 /* ViewControllerHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +56,7 @@
 		850D39A1223A44BC00BFAC81 /* RecipesTableViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecipesTableViewController.xib; sourceTree = "<group>"; };
 		850D39A3223A500500BFAC81 /* RecipeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecipeCell.xib; sourceTree = "<group>"; };
 		8514C778223A5E7C007D8D89 /* TableViewHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewHelper.swift; sourceTree = "<group>"; };
+		8514C77A223A6113007D8D89 /* ViewControllerHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerHelper.swift; sourceTree = "<group>"; };
 		E4DEF187FAB6A7B6F9E4A193 /* Pods_test2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_test2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -201,6 +203,7 @@
 			isa = PBXGroup;
 			children = (
 				8514C778223A5E7C007D8D89 /* TableViewHelper.swift */,
+				8514C77A223A6113007D8D89 /* ViewControllerHelper.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -339,6 +342,7 @@
 				850D399622396C5600BFAC81 /* JSONParameterEncoder.swift in Sources */,
 				850D39A0223A43FD00BFAC81 /* MainNavigationViewController.swift in Sources */,
 				850D396C2239652A00BFAC81 /* AppDelegate.swift in Sources */,
+				8514C77B223A6113007D8D89 /* ViewControllerHelper.swift in Sources */,
 				850D399722396C5600BFAC81 /* NetworkError.swift in Sources */,
 				850D399422396C5600BFAC81 /* ParameterEncoder.swift in Sources */,
 				850D398D22396C5600BFAC81 /* TestEndPoint.swift in Sources */,

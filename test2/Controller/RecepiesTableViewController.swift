@@ -36,7 +36,6 @@ class RecepiesTableViewController: UIViewController {
         }
         // Configure Refresh Control
         refreshControl.addTarget(self, action: #selector(refreshRecipesData(_:)), for: .valueChanged)
-        refreshControl.tintColor = UIColor(red:0.25, green:0.72, blue:0.85, alpha:1.0)
         refreshControl.attributedTitle = NSAttributedString(string: "Fetching Recipe Data ...", attributes: nil)
     }
     
@@ -65,13 +64,6 @@ class RecepiesTableViewController: UIViewController {
             
         }
     }
-    
-    private func showAlert(withMessage message: String?, success: Bool = false ) {
-        let alert = UIAlertController(title: success ? "Success" : "Error", message: message, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
-        alert.addAction(okAction)
-        present(alert, animated: true, completion: nil)
-    }
 }
 
  // MARK: - Table view data source
@@ -79,7 +71,7 @@ class RecepiesTableViewController: UIViewController {
 extension RecepiesTableViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         if recipes.isEmpty {
-            TableViewHelper.emptyMessage("You don't have any recipes, just yet.\n Pull to refresh!", tableView: tableView)
+            tableView.setEmptyMessage("You don't have any recipes, just yet.\n Pull to refresh!")
             return 0
         }
         return 1
