@@ -154,7 +154,7 @@ extension RecepiesTableViewController: UITableViewDelegate {
             preconditionFailure("Can not cast cell as Recipe Table View Cell")
         }
         let recipe = isFiltering ? filteredRecipes[indexPath.row] : recipes[indexPath.row]
-        cell.recipeImageView.kf.setImage(with: recipe.thumbImageURL)
+        cell.recipeImageView.kf.setImage(with: recipe.thumbImageURL, placeholder: UIImage(named: "food"))
         cell.nameLabel.text = recipe.name
         cell.descriptionLabel.text = recipe.description
     }

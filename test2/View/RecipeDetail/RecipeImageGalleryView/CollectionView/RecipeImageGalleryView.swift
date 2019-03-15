@@ -72,7 +72,7 @@ extension RecipeImageGalleryView: UICollectionViewDataSource {
         guard let cell = cell as? ImageGaleryCollectionViewCell else {
             preconditionFailure("Can not cast collection view cell as ImageGaleryCollectionViewCell")
         }
-        cell.imageView.kf.setImage(with: URLs[indexPath.row])
+        cell.imageView.kf.setImage(with: URLs[indexPath.row], placeholder: UIImage(named: "food"))
     }
 }
 
