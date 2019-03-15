@@ -11,6 +11,8 @@ import UIKit
 class RecipeTableHeaderView: UIView {
     
     @IBOutlet var contentView: UIView!
+    @IBOutlet weak var nameButton: ABRoundedButton!
+    @IBOutlet weak var dateButton: ABRoundedButton!
     
     override init(frame: CGRect) {
         super.init(frame: frame)

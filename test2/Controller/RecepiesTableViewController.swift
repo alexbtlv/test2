@@ -10,9 +10,12 @@ import UIKit
 import Kingfisher
 
 enum SearchScope: Int {
-    case name
-    case description
-    case instructions
+    case name, description, instructions
+}
+
+enum SortScope: String {
+    case name = "Name"
+    case date = "Date"
 }
 
 class RecepiesTableViewController: UIViewController {
@@ -67,6 +70,21 @@ class RecepiesTableViewController: UIViewController {
     
     @objc private func refreshRecipesData(_ sender: Any) {
         fetchRecipesData()
+    }
+    
+    @objc private func sortButtonTapped(_ sender: UIButton) {
+        guard let title = sender.titleLabel?.text, let scope = SortScope(rawValue: title) else { return }
+        sortRecipesBy(scope)
+        reloadData()
+    }
+    
+    private func sortRecipesBy(_ scope: SortScope) {
+        switch scope{
+        case .name:
+            isFiltering ? filteredRecipes.sort { $0.name < $1.name } : recipes.sort { $0.name < $1.name }
+        case .date:
+            isFiltering ? filteredRecipes.sort { $0.lastUpdated > $1.lastUpdated } : recipes.sort { $0.lastUpdated > $1.lastUpdated }
+        }
     }
 
     private func fetchRecipesData() {
@@ -151,6 +169,8 @@ extension RecepiesTableViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == 0 {
             let header = RecipeTableHeaderView()
+            header.dateButton.addTarget(self, action: #selector(sortButtonTapped(_:)), for: .touchUpInside)
+            header.nameButton.addTarget(self, action: #selector(sortButtonTapped(_:)), for: .touchUpInside)
             return header
         }
         return nil
@@ -172,7 +192,7 @@ extension RecepiesTableViewController: UISearchResultsUpdating {
         switch currentSearchScope {
         case .name:
             filteredRecipes = recipes.filter {
-                return $0.name?.lowercased().contains(searchText.lowercased()) ?? false
+                return $0.name.lowercased().contains(searchText.lowercased())
             }
         case .description:
             filteredRecipes = recipes.filter {
