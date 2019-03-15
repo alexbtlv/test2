@@ -7,9 +7,12 @@
 //
 
 import UIKit
+import Kingfisher
 
 class RecipeDetailViewController: UIViewController {
-
+    
+    @IBOutlet weak var recipeImageGalleryView: RecipeImageGalleryView!
+    
     var recipe: Recipe!
     
     override func viewDidLoad() {
@@ -19,5 +22,6 @@ class RecipeDetailViewController: UIViewController {
     
     private func updateUI() {
         title = recipe.name
+        recipeImageGalleryView.images = recipe.images
     }
 }
