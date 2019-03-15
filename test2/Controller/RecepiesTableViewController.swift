@@ -42,7 +42,6 @@ class RecepiesTableViewController: UIViewController {
         title = "Recipes"
         // register nib
         tableView.register(UINib(nibName: "RecipeCell", bundle: nil), forCellReuseIdentifier: cellReuseIdentifier)
-        
         // Prepare to present search controller
         definesPresentationContext = true
         
@@ -147,6 +146,18 @@ extension RecepiesTableViewController: UITableViewDelegate {
         let detailVC = RecipeDetailViewController(nibName: "RecipeDetailViewController", bundle: nil)
         detailVC.recipe = recipe
         navigationController?.pushViewController(detailVC, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if section == 0 {
+            let header = RecipeTableHeaderView()
+            return header
+        }
+        return nil
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 50
     }
 }
 
