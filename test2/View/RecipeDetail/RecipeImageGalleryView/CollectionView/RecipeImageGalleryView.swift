@@ -39,7 +39,8 @@ class RecipeImageGalleryView: UIView {
     private func commonInit() {
         Bundle.main.loadNibNamed("RecipeImageGalleryView", owner: self, options: nil)
         
-        collectionView.register(UINib(nibName: "ImageGaleryCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: cellReuseIdentifier)
+        let cellNib = UINib(nibName: "ImageGaleryCollectionViewCell", bundle: nil)
+        collectionView.register(cellNib, forCellWithReuseIdentifier: cellReuseIdentifier)
         collectionView.dataSource = self
         collectionView.delegate = self
         

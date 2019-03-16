@@ -46,7 +46,8 @@ class RecepiesTableViewController: UIViewController {
         title = "Recipes"
         
         tableView.rowHeight = 150
-        tableView.register(UINib(nibName: "RecipeCell", bundle: nil), forCellReuseIdentifier: cellReuseIdentifier)
+        let cellNib = UINib(nibName: "RecipeCell", bundle: nil)
+        tableView.register(cellNib, forCellReuseIdentifier: cellReuseIdentifier)
         // Prepare to present search controller
         definesPresentationContext = true
         
@@ -54,10 +55,8 @@ class RecepiesTableViewController: UIViewController {
         searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self
         searchController.dimsBackgroundDuringPresentation = false
-        searchController.hidesNavigationBarDuringPresentation = false
         searchController.searchBar.scopeButtonTitles = ["Name", "Description", "Instructions"]
         navigationItem.searchController = searchController
-        navigationItem.hidesSearchBarWhenScrolling = false
         
         // Add Refresh Control to Table View
         if #available(iOS 10.0, *) {
@@ -81,11 +80,12 @@ class RecepiesTableViewController: UIViewController {
     }
     
     private func sortRecipesBy(_ scope: SortScope) {
-        switch scope{
-        case .name:
-            isFiltering ? filteredRecipes.sort { $0.name < $1.name } : recipes.sort { $0.name < $1.name }
-        case .date:
-            isFiltering ? filteredRecipes.sort { $0.lastUpdated > $1.lastUpdated } : recipes.sort { $0.lastUpdated > $1.lastUpdated }
+        if isFiltering {
+            let sorted = filteredRecipes.sortedRecipesBy(scope)
+            filteredRecipes = filteredRecipes == sorted ? sorted.reversed() : sorted
+        } else {
+            let sorted = recipes.sortedRecipesBy(scope)
+            recipes = recipes == sorted ? sorted.reversed() : sorted
         }
     }
 

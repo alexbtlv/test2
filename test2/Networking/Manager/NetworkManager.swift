@@ -50,8 +50,6 @@ struct RecipeNetworkManager {
                         let apiResponse = try JSONDecoder().decode(RecipesWrapper.self, from: responseData)
                         completion(.success(apiResponse.recipes))
                     } catch {
-                        let json = try! JSONSerialization.jsonObject(with: responseData, options: JSONSerialization.ReadingOptions.allowFragments)
-                        print(json)
                         completion(.failure(NetworkResponse.unableToDecode.rawValue))
                     }
                     

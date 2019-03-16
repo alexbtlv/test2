@@ -13,7 +13,6 @@ extension UITableView {
     func setEmptyMessage(_ message:String) {
         let messageLabel = UILabel()
         messageLabel.text = message
-        messageLabel.textColor = .black
         messageLabel.numberOfLines = 0
         messageLabel.textAlignment = .center
         messageLabel.sizeToFit()

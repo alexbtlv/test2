@@ -26,7 +26,6 @@ class RecipeDetailViewController: UIViewController {
     }
     
     private func updateUI() {
-        title = recipe.name
         recipeImageGalleryView.images = recipe.images
         nameLabel.text = recipe.name
         descriptionLabel.text = recipe.description

@@ -9,7 +9,7 @@
 import Foundation
 
 
-struct Recipe: Codable {
+struct Recipe: Codable, Equatable {
     let uuid: String
     let name: String
     let images: [String]?
@@ -22,6 +22,10 @@ struct Recipe: Codable {
             return url
         }
         return nil
+    }
+    
+    static func ==(lhs: Recipe, rhs: Recipe) -> Bool {
+        return lhs.uuid == rhs.uuid
     }
 }
 

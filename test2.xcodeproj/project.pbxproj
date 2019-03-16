@@ -40,6 +40,7 @@
 		855ABD35223C110C007C2F24 /* ImageGaleryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855ABD33223C110C007C2F24 /* ImageGaleryCollectionViewCell.swift */; };
 		855ABD36223C110C007C2F24 /* ImageGaleryCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 855ABD34223C110C007C2F24 /* ImageGaleryCollectionViewCell.xib */; };
 		85BE57AB223D1A8400838CF4 /* StringHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85BE57AA223D1A8400838CF4 /* StringHelpers.swift */; };
+		85BE57AD223D791100838CF4 /* ArrayHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85BE57AC223D791100838CF4 /* ArrayHelpers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -79,6 +80,7 @@
 		855ABD33223C110C007C2F24 /* ImageGaleryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageGaleryCollectionViewCell.swift; sourceTree = "<group>"; };
 		855ABD34223C110C007C2F24 /* ImageGaleryCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageGaleryCollectionViewCell.xib; sourceTree = "<group>"; };
 		85BE57AA223D1A8400838CF4 /* StringHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringHelpers.swift; sourceTree = "<group>"; };
+		85BE57AC223D791100838CF4 /* ArrayHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayHelpers.swift; sourceTree = "<group>"; };
 		E4DEF187FAB6A7B6F9E4A193 /* Pods_test2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_test2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -229,6 +231,7 @@
 				8514C778223A5E7C007D8D89 /* TableViewHelper.swift */,
 				8514C77A223A6113007D8D89 /* ViewControllerHelper.swift */,
 				85BE57AA223D1A8400838CF4 /* StringHelpers.swift */,
+				85BE57AC223D791100838CF4 /* ArrayHelpers.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -455,6 +458,7 @@
 				850D399722396C5600BFAC81 /* NetworkError.swift in Sources */,
 				850D399422396C5600BFAC81 /* ParameterEncoder.swift in Sources */,
 				850D398D22396C5600BFAC81 /* TestEndPoint.swift in Sources */,
+				85BE57AD223D791100838CF4 /* ArrayHelpers.swift in Sources */,
 				855ABD32223BF724007C2F24 /* RecipeImageGalleryView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
