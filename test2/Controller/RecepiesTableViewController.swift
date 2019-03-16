@@ -44,7 +44,8 @@ class RecepiesTableViewController: UIViewController {
     
     private func setupUI() {
         title = "Recipes"
-        // register nib
+        
+        tableView.rowHeight = 150
         tableView.register(UINib(nibName: "RecipeCell", bundle: nil), forCellReuseIdentifier: cellReuseIdentifier)
         // Prepare to present search controller
         definesPresentationContext = true

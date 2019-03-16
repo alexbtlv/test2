@@ -12,6 +12,9 @@ import Kingfisher
 class RecipeDetailViewController: UIViewController {
     
     @IBOutlet weak var recipeImageGalleryView: RecipeImageGalleryView!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var instructionsLabel: UILabel!
     
     var recipe: Recipe!
     
@@ -23,5 +26,8 @@ class RecipeDetailViewController: UIViewController {
     private func updateUI() {
         title = recipe.name
         recipeImageGalleryView.images = recipe.images
+        nameLabel.text = recipe.name
+        descriptionLabel.text = recipe.description
+        instructionsLabel.text = recipe.instructions
     }
 }
