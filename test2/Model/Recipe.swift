@@ -18,8 +18,8 @@ struct Recipe: Codable {
     let instructions: String?
     let difficulty: Int?
     var thumbImageURL: URL? {
-        if let first = images?.first, let firstURL = URL(string: first) {
-            return firstURL
+        if let first = images?.first, let url = URL(string: first) {
+            return url
         }
         return nil
     }

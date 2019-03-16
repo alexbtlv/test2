@@ -25,6 +25,7 @@ class RecepiesTableViewController: UIViewController {
     private let refreshControl = UIRefreshControl()
     private let searchController = UISearchController(searchResultsController: nil)
     private let cellReuseIdentifier = "RecepieCell"
+    private let tableViewHeaderHeight: CGFloat = 50
     private var recipes = [Recipe]()
     private var filteredRecipes = [Recipe]()
     private var currentSearchScope: SearchScope = .name
@@ -154,9 +155,7 @@ extension RecepiesTableViewController: UITableViewDelegate {
             preconditionFailure("Can not cast cell as Recipe Table View Cell")
         }
         let recipe = isFiltering ? filteredRecipes[indexPath.row] : recipes[indexPath.row]
-        cell.recipeImageView.kf.setImage(with: recipe.thumbImageURL, placeholder: UIImage(named: "food"))
-        cell.nameLabel.text = recipe.name
-        cell.descriptionLabel.text = recipe.description
+        cell.recipe = recipe
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -177,7 +176,7 @@ extension RecepiesTableViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 50
+        return tableViewHeaderHeight
     }
 }
 
