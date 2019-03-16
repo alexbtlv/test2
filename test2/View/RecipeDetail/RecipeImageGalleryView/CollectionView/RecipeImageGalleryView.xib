@@ -32,8 +32,12 @@
                         <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                     </collectionViewFlowLayout>
                 </collectionView>
-                <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="HQC-6g-ek5">
-                    <rect key="frame" x="168" y="163" width="39" height="37"/>
+                <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" hidesForSinglePage="YES" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="HQC-6g-ek5">
+                    <rect key="frame" x="0.0" y="163" width="375" height="37"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <connections>
+                        <action selector="pageControlValueDidChange:" destination="-1" eventType="valueChanged" id="UAy-sV-TcD"/>
+                    </connections>
                 </pageControl>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -43,7 +47,9 @@
                 <constraint firstItem="BXp-6k-X1q" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="BeR-Gx-1Z0"/>
                 <constraint firstItem="BXp-6k-X1q" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="F5x-0N-1wW"/>
                 <constraint firstItem="HQC-6g-ek5" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="HPA-dP-eid"/>
+                <constraint firstItem="HQC-6g-ek5" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="eHj-04-kU4"/>
                 <constraint firstItem="BXp-6k-X1q" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="iDL-Wb-3dE"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="HQC-6g-ek5" secondAttribute="trailing" id="kZ2-3r-mtM"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>

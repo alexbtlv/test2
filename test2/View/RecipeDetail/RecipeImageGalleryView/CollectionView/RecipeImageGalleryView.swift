@@ -43,20 +43,25 @@ class RecipeImageGalleryView: UIView {
         collectionView.dataSource = self
         collectionView.delegate = self
         
-        pageControl.hidesForSinglePage = true
-        
         containerView.frame = self.bounds
-        containerView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         
-        containerView.bringSubviewToFront(pageControl)
         addSubview(containerView)
+        containerView.bringSubviewToFront(pageControl)
     }
 
     private func reloadData() {
         pageControl.numberOfPages = URLs.count
         collectionView.reloadData()
     }
+    
+    @IBAction func pageControlValueDidChange(_ sender: UIPageControl) {
+        let indexPath = IndexPath(item: sender.currentPage, section: 0)
+        collectionView.scrollToItem(at: indexPath, at: .left, animated: true)
+    }
+    
 }
+
+// MARK: Collection View Data Source
 
 extension RecipeImageGalleryView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -76,12 +81,17 @@ extension RecipeImageGalleryView: UICollectionViewDataSource {
     }
 }
 
+// MARK: Collection View Flow Layout
 
 extension RecipeImageGalleryView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return containerView.frame.size
     }
-    
+}
+
+// MARK: Scroll View Methods
+
+extension RecipeImageGalleryView {
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         pageControl.currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
     }

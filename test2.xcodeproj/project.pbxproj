@@ -39,6 +39,7 @@
 		855ABD32223BF724007C2F24 /* RecipeImageGalleryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855ABD31223BF724007C2F24 /* RecipeImageGalleryView.swift */; };
 		855ABD35223C110C007C2F24 /* ImageGaleryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855ABD33223C110C007C2F24 /* ImageGaleryCollectionViewCell.swift */; };
 		855ABD36223C110C007C2F24 /* ImageGaleryCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 855ABD34223C110C007C2F24 /* ImageGaleryCollectionViewCell.xib */; };
+		85BE57AB223D1A8400838CF4 /* StringHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85BE57AA223D1A8400838CF4 /* StringHelpers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -77,6 +78,7 @@
 		855ABD31223BF724007C2F24 /* RecipeImageGalleryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeImageGalleryView.swift; sourceTree = "<group>"; };
 		855ABD33223C110C007C2F24 /* ImageGaleryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageGaleryCollectionViewCell.swift; sourceTree = "<group>"; };
 		855ABD34223C110C007C2F24 /* ImageGaleryCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageGaleryCollectionViewCell.xib; sourceTree = "<group>"; };
+		85BE57AA223D1A8400838CF4 /* StringHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringHelpers.swift; sourceTree = "<group>"; };
 		E4DEF187FAB6A7B6F9E4A193 /* Pods_test2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_test2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -226,6 +228,7 @@
 			children = (
 				8514C778223A5E7C007D8D89 /* TableViewHelper.swift */,
 				8514C77A223A6113007D8D89 /* ViewControllerHelper.swift */,
+				85BE57AA223D1A8400838CF4 /* StringHelpers.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -407,12 +410,14 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-test2/Pods-test2-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Cosmos/Cosmos.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cosmos.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -435,6 +440,7 @@
 				8514C779223A5E7C007D8D89 /* TableViewHelper.swift in Sources */,
 				8514C782223AC666007D8D89 /* RecipeDetailViewController.swift in Sources */,
 				855ABD27223BC583007C2F24 /* RecipeTableHeaderView.swift in Sources */,
+				85BE57AB223D1A8400838CF4 /* StringHelpers.swift in Sources */,
 				850D399022396C5600BFAC81 /* HTTPTask.swift in Sources */,
 				850D399322396C5600BFAC81 /* EndPointType.swift in Sources */,
 				850D399D223971D400BFAC81 /* RecepiesTableViewController.swift in Sources */,

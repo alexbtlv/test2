@@ -7,6 +7,6 @@ target 'test2' do
   
   # Pods for test2
   pod 'Kingfisher'
-
+  pod 'Cosmos', '~> 18.0'
 
 end
