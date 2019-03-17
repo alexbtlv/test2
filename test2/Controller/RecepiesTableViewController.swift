@@ -7,13 +7,12 @@
 //
 
 import UIKit
-import Kingfisher
 
-enum SearchScope: Int {
+enum RecipeSearchScope: Int {
     case name, description, instructions
 }
 
-enum SortScope: String {
+enum RecipeSortScope: String {
     case name = "Name"
     case date = "Date"
 }
@@ -28,7 +27,7 @@ class RecepiesTableViewController: UIViewController {
     private let tableViewHeaderHeight: CGFloat = 50
     private var recipes = [Recipe]()
     private var filteredRecipes = [Recipe]()
-    private var currentSearchScope: SearchScope = .name
+    private var currentSearchScope: RecipeSearchScope = .name
     private let networkManager = RecipeNetworkManager()
     private var searchBarIsEmpty: Bool {
         return searchController.searchBar.text?.isEmpty ?? true
@@ -74,12 +73,12 @@ class RecepiesTableViewController: UIViewController {
     }
     
     @objc private func sortButtonTapped(_ sender: UIButton) {
-        guard let title = sender.titleLabel?.text, let scope = SortScope(rawValue: title) else { return }
+        guard let title = sender.titleLabel?.text, let scope = RecipeSortScope(rawValue: title) else { return }
         sortRecipesBy(scope)
         reloadData()
     }
     
-    private func sortRecipesBy(_ scope: SortScope) {
+    private func sortRecipesBy(_ scope: RecipeSortScope) {
         if isFiltering {
             let sorted = filteredRecipes.sortedRecipesBy(scope)
             filteredRecipes = filteredRecipes == sorted ? sorted.reversed() : sorted
@@ -211,7 +210,7 @@ extension RecepiesTableViewController: UISearchResultsUpdating {
 
 extension RecepiesTableViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
-        currentSearchScope = SearchScope(rawValue: selectedScope) ?? .name
+        currentSearchScope = RecipeSearchScope(rawValue: selectedScope) ?? .name
         updateSearchResults(for: searchController)
     }
 }

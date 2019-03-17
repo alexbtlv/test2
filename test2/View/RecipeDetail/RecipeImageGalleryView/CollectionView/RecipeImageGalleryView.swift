@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class RecipeImageGalleryView: UIView {
     
@@ -14,12 +15,12 @@ class RecipeImageGalleryView: UIView {
     @IBOutlet weak var pageControl: UIPageControl!
     @IBOutlet var containerView: UIView!
     
+    private let cellReuseIdentifier = "ImageCell"
     var images: [String]? {
         didSet {
             reloadData()
         }
     }
-    private let cellReuseIdentifier = "ImageCell"
     private var URLs: [URL] {
         guard let images = images else { return [] }
         let possibles = images.map { URL(string: $0) }

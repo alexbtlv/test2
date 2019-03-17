@@ -74,7 +74,6 @@ import UIKit
         layer.borderColor = color.cgColor
     }
     
-    
     private func createImage(fromColor color: UIColor) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(CGSize(width: 1, height: 1), true, 0.0)
         color.setFill()

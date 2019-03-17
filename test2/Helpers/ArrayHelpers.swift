@@ -10,7 +10,7 @@ import Foundation
 
 extension Sequence where Element == Recipe {
     
-    func sortedRecipesBy(_ scope: SortScope) -> [Recipe] {
+    func sortedRecipesBy(_ scope: RecipeSortScope) -> [Recipe] {
         switch scope {
         case .name:
             return self.sorted(by: { $0.name < $1.name } )
