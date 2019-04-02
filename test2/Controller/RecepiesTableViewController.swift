@@ -185,24 +185,10 @@ extension RecepiesTableViewController: UITableViewDelegate {
 
 extension RecepiesTableViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        filterContentForSearchText(searchController.searchBar.text!)
-    }
-    
-    private func filterContentForSearchText(_ searchText: String) {
-        switch currentSearchScope {
-        case .name:
-            filteredRecipes = recipeViewModel.filter {
-                return $0.name.lowercased().contains(searchText.lowercased())
-            }
-        case .description:
-            filteredRecipes = recipeViewModel.filter {
-                return $0.description.lowercased().contains(searchText.lowercased())
-            }
-        case .instructions:
-            filteredRecipes = recipeViewModel.filter {
-                return $0.instructions.lowercased().contains(searchText.lowercased())
-            }
+        guard let searchText = searchController.searchBar.text else {
+            preconditionFailure("Empty search text")
         }
+        filteredRecipes = RecipeViewModel.filterRecipeBy(text: searchText, scope: currentSearchScope, source: recipeViewModel)
         reloadData()
     }
 }
