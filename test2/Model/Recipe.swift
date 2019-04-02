@@ -17,12 +17,6 @@ struct Recipe: Codable, Equatable {
     let description: String?
     let instructions: String?
     let difficulty: Int?
-    var thumbImageURL: URL? {
-        if let first = images?.first, let url = URL(string: first) {
-            return url
-        }
-        return nil
-    }
     
     static func ==(lhs: Recipe, rhs: Recipe) -> Bool {
         return lhs.uuid == rhs.uuid

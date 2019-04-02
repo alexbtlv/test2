@@ -14,16 +14,16 @@ class RecipeTableViewCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
 
-    var recipe: Recipe? {
+    var recipeVM: RecipeViewModel? {
         didSet {
             updateUI()
         }
     }
     
     private func updateUI() {
-        guard let recipe = recipe else { return }
-        recipeImageView.kf.setImage(with: recipe.thumbImageURL, placeholder: UIImage(named: "food"))
-        nameLabel.text = recipe.name
-        descriptionLabel.text = recipe.description
+        guard let recipeVM = recipeVM else { return }
+        recipeImageView.kf.setImage(with: recipeVM.thumbImageURL, placeholder: UIImage(named: "food"))
+        nameLabel.text = recipeVM.name
+        descriptionLabel.text = recipeVM.description
     }
 }

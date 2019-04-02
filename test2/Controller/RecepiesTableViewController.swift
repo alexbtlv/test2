@@ -25,8 +25,8 @@ class RecepiesTableViewController: UIViewController {
     private let searchController = UISearchController(searchResultsController: nil)
     private let cellReuseIdentifier = "RecepieCell"
     private let tableViewHeaderHeight: CGFloat = 50
-    private var recipes = [Recipe]()
-    private var filteredRecipes = [Recipe]()
+    private var recipeViewModel = [RecipeViewModel]()
+    private var filteredRecipes = [RecipeViewModel]()
     private var currentSearchScope: RecipeSearchScope = .name
     private let networkManager = RecipeNetworkManager()
     private var searchBarIsEmpty: Bool {
@@ -83,8 +83,8 @@ class RecepiesTableViewController: UIViewController {
             let sorted = filteredRecipes.sortedRecipesBy(scope)
             filteredRecipes = filteredRecipes == sorted ? sorted.reversed() : sorted
         } else {
-            let sorted = recipes.sortedRecipesBy(scope)
-            recipes = recipes == sorted ? sorted.reversed() : sorted
+            let sorted = recipeViewModel.sortedRecipesBy(scope)
+            recipeViewModel = recipeViewModel == sorted ? sorted.reversed() : sorted
         }
     }
 
@@ -98,7 +98,8 @@ class RecepiesTableViewController: UIViewController {
                     
                     switch response {
                     case .success(let newRecepies):
-                        self.recipes = newRecepies
+                        let VMs = newRecepies.map { RecipeViewModel(recipe: $0) }
+                        self.recipeViewModel = VMs
                         self.reloadData()
                     case .failure(let error):
                         self.showAlert(withMessage: error)
@@ -112,7 +113,7 @@ class RecepiesTableViewController: UIViewController {
     private func reloadData() {
         if isFiltering && filteredRecipes.isEmpty {
             tableView.setEmptyMessage("No search results")
-        } else if recipes.isEmpty {
+        } else if recipeViewModel.isEmpty {
             tableView.setEmptyMessage("You don't have any recipes, yet.\n Pull to refresh!")
         } else {
             tableView.removeEmptyMessge()
@@ -125,7 +126,7 @@ class RecepiesTableViewController: UIViewController {
 
 extension RecepiesTableViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        if recipes.isEmpty {
+        if recipeViewModel.isEmpty {
             tableView.setEmptyMessage("You don't have any recipes, yet.\n Pull to refresh!")
             return 0
         }
@@ -136,7 +137,7 @@ extension RecepiesTableViewController: UITableViewDataSource {
         if isFiltering {
             return filteredRecipes.count
         }
-        return recipes.count
+        return recipeViewModel.count
     }
 }
 
@@ -154,14 +155,14 @@ extension RecepiesTableViewController: UITableViewDelegate {
         guard let cell = cell as? RecipeTableViewCell else {
             preconditionFailure("Can not cast cell as Recipe Table View Cell")
         }
-        let recipe = isFiltering ? filteredRecipes[indexPath.row] : recipes[indexPath.row]
-        cell.recipe = recipe
+        let recipeVM = isFiltering ? filteredRecipes[indexPath.row] : recipeViewModel[indexPath.row]
+        cell.recipeVM = recipeVM
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let recipe = isFiltering ? filteredRecipes[indexPath.row] : recipes[indexPath.row]
+        let recipeVM = isFiltering ? filteredRecipes[indexPath.row] : recipeViewModel[indexPath.row]
         let detailVC = RecipeDetailViewController(nibName: "RecipeDetailViewController", bundle: nil)
-        detailVC.recipe = recipe
+        detailVC.recipeVM = recipeVM
         navigationController?.pushViewController(detailVC, animated: true)
     }
     
@@ -190,19 +191,18 @@ extension RecepiesTableViewController: UISearchResultsUpdating {
     private func filterContentForSearchText(_ searchText: String) {
         switch currentSearchScope {
         case .name:
-            filteredRecipes = recipes.filter {
+            filteredRecipes = recipeViewModel.filter {
                 return $0.name.lowercased().contains(searchText.lowercased())
             }
         case .description:
-            filteredRecipes = recipes.filter {
-                return $0.description?.lowercased().contains(searchText.lowercased()) ?? false
+            filteredRecipes = recipeViewModel.filter {
+                return $0.description.lowercased().contains(searchText.lowercased())
             }
         case .instructions:
-            filteredRecipes = recipes.filter {
-                return $0.instructions?.lowercased().contains(searchText.lowercased()) ?? false
+            filteredRecipes = recipeViewModel.filter {
+                return $0.instructions.lowercased().contains(searchText.lowercased())
             }
         }
-        
         reloadData()
     }
 }

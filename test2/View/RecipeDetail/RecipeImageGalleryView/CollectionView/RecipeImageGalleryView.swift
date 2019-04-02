@@ -11,20 +11,16 @@ import Kingfisher
 
 class RecipeImageGalleryView: UIView {
     
-    @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var pageControl: UIPageControl!
-    @IBOutlet var containerView: UIView!
+    @IBOutlet private weak var collectionView: UICollectionView!
+    @IBOutlet private weak var pageControl: UIPageControl!
+    @IBOutlet private var containerView: UIView!
     
     private let cellReuseIdentifier = "ImageCell"
-    var images: [String]? {
+    
+    public var imageURLs: [URL] = [] {
         didSet {
             reloadData()
         }
-    }
-    private var URLs: [URL] {
-        guard let images = images else { return [] }
-        let possibles = images.map { URL(string: $0) }
-        return possibles.compactMap { $0 }
     }
     
     override init(frame: CGRect) {
@@ -52,7 +48,7 @@ class RecipeImageGalleryView: UIView {
     }
 
     private func reloadData() {
-        pageControl.numberOfPages = URLs.count
+        pageControl.numberOfPages = imageURLs.count
         collectionView.reloadData()
     }
     
@@ -67,7 +63,7 @@ class RecipeImageGalleryView: UIView {
 
 extension RecipeImageGalleryView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return URLs.count
+        return imageURLs.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -79,7 +75,7 @@ extension RecipeImageGalleryView: UICollectionViewDataSource {
         guard let cell = cell as? ImageGaleryCollectionViewCell else {
             preconditionFailure("Can not cast collection view cell as ImageGaleryCollectionViewCell")
         }
-        cell.imageView.kf.setImage(with: URLs[indexPath.row], placeholder: UIImage(named: "food"))
+        cell.imageView.kf.setImage(with: imageURLs[indexPath.row], placeholder: UIImage(named: "food"))
     }
 }
 

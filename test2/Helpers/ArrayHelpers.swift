@@ -8,9 +8,9 @@
 
 import Foundation
 
-extension Sequence where Element == Recipe {
+extension Sequence where Element == RecipeViewModel {
     
-    func sortedRecipesBy(_ scope: RecipeSortScope) -> [Recipe] {
+    func sortedRecipesBy(_ scope: RecipeSortScope) -> [RecipeViewModel] {
         switch scope {
         case .name:
             return self.sorted(by: { $0.name < $1.name } )

@@ -17,7 +17,7 @@ class RecipeDetailViewController: UIViewController {
     @IBOutlet weak var instructionsLabel: UILabel!
     @IBOutlet weak var cosmosView: CosmosView!
     
-    var recipe: Recipe!
+    var recipeVM: RecipeViewModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,10 +25,10 @@ class RecipeDetailViewController: UIViewController {
     }
     
     private func updateUI() {
-        recipeImageGalleryView.images = recipe.images
-        nameLabel.text = recipe.name
-        descriptionLabel.text = recipe.description
-        instructionsLabel.attributedText = recipe.instructions?.htmlToAttributedString
-        cosmosView.rating = Double(recipe.difficulty ?? 0)
+        recipeImageGalleryView.imageURLs = recipeVM.imageURLs
+        nameLabel.text = recipeVM.name
+        descriptionLabel.text = recipeVM.description
+        instructionsLabel.attributedText = recipeVM.instructionsAttributedText
+        cosmosView.rating = recipeVM.difficultyRating
     }
 }
