@@ -49,7 +49,7 @@ class RecipeViewModel {
         return Double(recipe.difficulty ?? 0)
     }
     
-    init(recipe: Recipe) {
+    init(_ recipe: Recipe) {
         self.recipe = recipe
     }
 }
@@ -61,23 +61,4 @@ extension RecipeViewModel: Equatable {
     }
 }
 
-
-extension RecipeViewModel {
-    static func filterRecipeBy(text: String, scope: RecipeSearchScope, source: [RecipeViewModel]) -> [RecipeViewModel] {
-        switch scope {
-        case .name:
-            return source.filter {
-                return $0.name.lowercased().contains(text.lowercased())
-            }
-        case .description:
-            return source.filter {
-                return $0.description.lowercased().contains(text.lowercased())
-            }
-        case .instructions:
-            return source.filter {
-                return $0.instructions.lowercased().contains(text.lowercased())
-            }
-        }
-    }
-}
 

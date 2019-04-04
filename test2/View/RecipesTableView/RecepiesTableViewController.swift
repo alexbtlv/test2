@@ -25,8 +25,8 @@ class RecepiesTableViewController: UIViewController {
     private let searchController = UISearchController(searchResultsController: nil)
     private let cellReuseIdentifier = "RecepieCell"
     private let tableViewHeaderHeight: CGFloat = 50
-    private var recipeViewModel = [RecipeViewModel]()
-    private var filteredRecipes = [RecipeViewModel]()
+    
+    private let recipesViewModel = RecipesViewModel()
     private var currentSearchScope: RecipeSearchScope = .name
     private let networkManager = RecipeNetworkManager()
     private var searchBarIsEmpty: Bool {
@@ -74,18 +74,8 @@ class RecepiesTableViewController: UIViewController {
     
     @objc private func sortButtonTapped(_ sender: UIButton) {
         guard let title = sender.titleLabel?.text, let scope = RecipeSortScope(rawValue: title) else { return }
-        sortRecipesBy(scope)
+        recipesViewModel.sortRecipesBy(scope, isFiltering: isFiltering)
         reloadData()
-    }
-    
-    private func sortRecipesBy(_ scope: RecipeSortScope) {
-        if isFiltering {
-            let sorted = filteredRecipes.sortedRecipesBy(scope)
-            filteredRecipes = filteredRecipes == sorted ? sorted.reversed() : sorted
-        } else {
-            let sorted = recipeViewModel.sortedRecipesBy(scope)
-            recipeViewModel = recipeViewModel == sorted ? sorted.reversed() : sorted
-        }
     }
 
     private func fetchRecipesData() {
@@ -98,8 +88,7 @@ class RecepiesTableViewController: UIViewController {
                     
                     switch response {
                     case .success(let newRecepies):
-                        let VMs = newRecepies.map { RecipeViewModel(recipe: $0) }
-                        self.recipeViewModel = VMs
+                        self.recipesViewModel.setRecipes(newRecepies)
                         self.reloadData()
                     case .failure(let error):
                         self.showAlert(withMessage: error)
@@ -111,9 +100,9 @@ class RecepiesTableViewController: UIViewController {
     }
     
     private func reloadData() {
-        if isFiltering && filteredRecipes.isEmpty {
+        if isFiltering && recipesViewModel.filteredRecipesIsEmpty {
             tableView.setEmptyMessage("No search results")
-        } else if recipeViewModel.isEmpty {
+        } else if recipesViewModel.isEmpty {
             tableView.setEmptyMessage("You don't have any recipes, yet.\n Pull to refresh!")
         } else {
             tableView.removeEmptyMessge()
@@ -126,18 +115,15 @@ class RecepiesTableViewController: UIViewController {
 
 extension RecepiesTableViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        if recipeViewModel.isEmpty {
+        if recipesViewModel.isEmpty {
             tableView.setEmptyMessage("You don't have any recipes, yet.\n Pull to refresh!")
             return 0
         }
-        return 1
+        return recipesViewModel.numberOfSections
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if isFiltering {
-            return filteredRecipes.count
-        }
-        return recipeViewModel.count
+        return isFiltering ? recipesViewModel.numberOfFilteredRows : recipesViewModel.numberOfRows
     }
 }
 
@@ -155,12 +141,12 @@ extension RecepiesTableViewController: UITableViewDelegate {
         guard let cell = cell as? RecipeTableViewCell else {
             preconditionFailure("Can not cast cell as Recipe Table View Cell")
         }
-        let recipeVM = isFiltering ? filteredRecipes[indexPath.row] : recipeViewModel[indexPath.row]
+        let recipeVM = recipesViewModel.recipeViewModelFor(indexPath: indexPath, isFiltering: isFiltering)
         cell.recipeVM = recipeVM
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let recipeVM = isFiltering ? filteredRecipes[indexPath.row] : recipeViewModel[indexPath.row]
+        let recipeVM = recipesViewModel.recipeViewModelFor(indexPath: indexPath, isFiltering: isFiltering)
         let detailVC = RecipeDetailViewController(nibName: "RecipeDetailViewController", bundle: nil)
         detailVC.recipeVM = recipeVM
         navigationController?.pushViewController(detailVC, animated: true)
@@ -188,7 +174,7 @@ extension RecepiesTableViewController: UISearchResultsUpdating {
         guard let searchText = searchController.searchBar.text else {
             preconditionFailure("Empty search text")
         }
-        filteredRecipes = RecipeViewModel.filterRecipeBy(text: searchText, scope: currentSearchScope, source: recipeViewModel)
+        recipesViewModel.filterRecipeBy(text: searchText, scope: currentSearchScope)
         reloadData()
     }
 }
